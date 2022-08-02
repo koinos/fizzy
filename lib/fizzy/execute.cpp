@@ -784,14 +784,22 @@ ExecutionResult execute(
         }
         case Instr::f32_load:
         {
+#ifdef DISABLE_FLOAT
+            goto trap;
+#else
             if (!load_from_memory<float>(*memory, stack, pc))
                 goto trap;
+#endif
             break;
         }
         case Instr::f64_load:
         {
+#ifdef DISABLE_FLOAT
+            goto trap;
+#else
             if (!load_from_memory<double>(*memory, stack, pc))
                 goto trap;
+#endif
             break;
         }
         case Instr::i32_load8_s:
